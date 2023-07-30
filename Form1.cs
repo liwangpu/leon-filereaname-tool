@@ -7,11 +7,15 @@ namespace FileRename
             InitializeComponent();
         }
 
+        private void FileRenameForm_Load(object sender, EventArgs e)
+        {
+            this.ActiveControl = btnSelectSource;
+        }
+
         private void btnHandle_Click(object sender, EventArgs e)
         {
-            var files = Directory.GetFiles(txtSource.Text,"*.*", SearchOption.AllDirectories);
-            //Guid.NewGuid().ToString();
-
+            var filter = string.IsNullOrWhiteSpace(txtFileFilter.Text) ? "*.*" : txtFileFilter.Text;
+            var files = Directory.GetFiles(txtSource.Text, filter, SearchOption.AllDirectories);
             var destFolder = string.IsNullOrWhiteSpace(txtDest.Text) ? txtSource.Text : txtDest.Text;
             foreach (var file in files)
             {
@@ -57,5 +61,6 @@ namespace FileRename
                 }
             }
         }
+
     }
 }

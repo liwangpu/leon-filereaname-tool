@@ -37,6 +37,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtDest = new System.Windows.Forms.TextBox();
             this.btnSelectDest = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -85,7 +87,7 @@
             // btnHandle
             // 
             this.btnHandle.Enabled = false;
-            this.btnHandle.Location = new System.Drawing.Point(289, 180);
+            this.btnHandle.Location = new System.Drawing.Point(289, 215);
             this.btnHandle.Name = "btnHandle";
             this.btnHandle.Size = new System.Drawing.Size(75, 23);
             this.btnHandle.TabIndex = 3;
@@ -96,7 +98,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 130);
+            this.label3.Location = new System.Drawing.Point(28, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 17);
             this.label3.TabIndex = 0;
@@ -105,14 +107,14 @@
             // txtDest
             // 
             this.txtDest.Enabled = false;
-            this.txtDest.Location = new System.Drawing.Point(81, 127);
+            this.txtDest.Location = new System.Drawing.Point(81, 170);
             this.txtDest.Name = "txtDest";
             this.txtDest.Size = new System.Drawing.Size(202, 23);
             this.txtDest.TabIndex = 1;
             // 
             // btnSelectDest
             // 
-            this.btnSelectDest.Location = new System.Drawing.Point(289, 127);
+            this.btnSelectDest.Location = new System.Drawing.Point(289, 170);
             this.btnSelectDest.Name = "btnSelectDest";
             this.btnSelectDest.Size = new System.Drawing.Size(75, 23);
             this.btnSelectDest.TabIndex = 2;
@@ -120,25 +122,45 @@
             this.btnSelectDest.UseVisualStyleBackColor = true;
             this.btnSelectDest.Click += new System.EventHandler(this.btnSelectDest_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 127);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 17);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "过滤文件:";
+            // 
+            // txtFileFilter
+            // 
+            this.txtFileFilter.Location = new System.Drawing.Point(81, 124);
+            this.txtFileFilter.Name = "txtFileFilter";
+            this.txtFileFilter.Size = new System.Drawing.Size(283, 23);
+            this.txtFileFilter.TabIndex = 1;
+            this.txtFileFilter.Text = "*.mp4";
+            // 
             // FileRenameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 221);
+            this.ClientSize = new System.Drawing.Size(384, 261);
             this.Controls.Add(this.btnHandle);
             this.Controls.Add(this.btnSelectDest);
             this.Controls.Add(this.btnSelectSource);
             this.Controls.Add(this.txtDest);
+            this.Controls.Add(this.txtFileFilter);
             this.Controls.Add(this.txtPrefix);
             this.Controls.Add(this.txtSource);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(400, 260);
-            this.MinimumSize = new System.Drawing.Size(400, 260);
+            this.MaximumSize = new System.Drawing.Size(400, 300);
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "FileRenameForm";
             this.Text = "文件更名";
+            this.Load += new System.EventHandler(this.FileRenameForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,5 +177,7 @@
         private Label label3;
         private TextBox txtDest;
         private Button btnSelectDest;
+        private Label label4;
+        private TextBox txtFileFilter;
     }
 }
