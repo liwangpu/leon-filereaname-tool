@@ -6,6 +6,7 @@ namespace FileRename
     public partial class FileRenameForm : Form
     {
         private GenerationOptions shortIdOptions;
+        private static string AllFileFilter = "*.*";
         public FileRenameForm()
         {
             InitializeComponent();
@@ -27,25 +28,29 @@ namespace FileRename
 
         private void btnHandle_Click(object sender, EventArgs e)
         {
-            var filter = string.IsNullOrWhiteSpace(txtFileFilter.Text) ? "*.*" : txtFileFilter.Text;
-            var files = Directory.GetFiles(txtSource.Text, filter, SearchOption.AllDirectories);
-            var destFolder = string.IsNullOrWhiteSpace(txtDest.Text) ? txtSource.Text : txtDest.Text;
-
-            foreach (var file in files)
+            InvokeMainForm((obj) =>
             {
-                var ext = Path.GetExtension(file);
-                var newFileName = $"{ ShortId.Generate(shortIdOptions)}{ext}";
-                if (!string.IsNullOrWhiteSpace(txtPrefix.Text))
+                var filter = string.IsNullOrWhiteSpace(txtFileFilter.Text) ? AllFileFilter : txtFileFilter.Text;
+                var files = Directory.GetFiles(txtSource.Text, filter, SearchOption.AllDirectories);
+                var destFolder = string.IsNullOrWhiteSpace(txtDest.Text) ? txtSource.Text : txtDest.Text;
+
+                foreach (var file in files)
                 {
-                    newFileName = $"{txtPrefix.Text}-{newFileName}";
+                    var ext = Path.GetExtension(file);
+                    var newFileName = $"{ ShortId.Generate(shortIdOptions)}{ext}";
+                    if (!string.IsNullOrWhiteSpace(txtPrefix.Text))
+                    {
+                        newFileName = $"{txtPrefix.Text}-{newFileName}";
+                    }
+
+                    var newFilePath = Path.Combine(destFolder, newFileName);
+                    File.Move(file, newFilePath);
                 }
 
-                var newFilePath = Path.Combine(destFolder, newFileName);
-                File.Move(file, newFilePath);
-            }
+                MessageBox.Show("处理完毕!");
+                btnHandle.Enabled = false;
 
-            MessageBox.Show("处理完毕!");
-            btnHandle.Enabled = false;
+            }, null);
         }
 
         private void btnSelectSource_Click(object sender, EventArgs e)
@@ -74,22 +79,56 @@ namespace FileRename
                     txtDest.Text = fbd.SelectedPath;
                 }
             }
+
+            checkAndEnableHandleButton();
         }
 
         private void btnPrefixGenerator_Click(object sender, EventArgs e)
         {
             generateRandomPrefix();
-            btnHandle.Enabled = true;
+            checkAndEnableHandleButton();
         }
 
         private void btnFileSelectOfAllFile_Click(object sender, EventArgs e)
         {
-            txtFileFilter.Text = "*.*";
+            txtFileFilter.Text = AllFileFilter;
         }
 
         private void btnFileSelectOfMP4_Click(object sender, EventArgs e)
         {
             txtFileFilter.Text = "*.mp4";
+        }
+
+        private void checkAndEnableHandleButton()
+        {
+            if (!string.IsNullOrWhiteSpace(txtSource.Text))
+            {
+                btnHandle.Enabled = true;
+            }
+        }
+
+        protected void InvokeMainForm(Action act)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(act);
+            }
+            else
+            {
+                act.Invoke();
+            }
+        }
+
+        private void InvokeMainForm(Action<object> act, object obj)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(act, obj);
+            }
+            else
+            {
+                act.Invoke(obj);
+            }
         }
     }
 }

@@ -58,6 +58,7 @@
             this.txtSource.Enabled = false;
             this.txtSource.Location = new System.Drawing.Point(81, 32);
             this.txtSource.Name = "txtSource";
+            this.txtSource.PlaceholderText = "请选择源文件夹";
             this.txtSource.Size = new System.Drawing.Size(202, 23);
             this.txtSource.TabIndex = 1;
             // 
@@ -139,6 +140,7 @@
             // 
             this.txtFileFilter.Location = new System.Drawing.Point(81, 124);
             this.txtFileFilter.Name = "txtFileFilter";
+            this.txtFileFilter.PlaceholderText = "*.*";
             this.txtFileFilter.Size = new System.Drawing.Size(283, 23);
             this.txtFileFilter.TabIndex = 1;
             this.txtFileFilter.Text = "*.*";
